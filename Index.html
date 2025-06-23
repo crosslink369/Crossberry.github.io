@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CricHeroes App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    [data-theme="dark"] {
+      --bg: #121212;
+      --text: #e0e0e0;
+    }
+    [data-theme="light"] {
+      --bg: #ffffff;
+      --text: #111111;
+    }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+    }
+  </style>
+</head>
+<body class="min-h-screen transition-colors duration-300">
+  <div class="max-w-md mx-auto p-4">
+
+    <!-- Top bar -->
+    <div class="flex justify-between items-center mb-4">
+      <svg class="w-6 h-6 cursor-pointer" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+      <div class="relative">
+        <svg onclick="toggleMenu()" class="w-6 h-6 cursor-pointer" fill="currentColor" viewBox="0 0 24 24">
+          <circle cx="12" cy="5" r="1.5"/>
+          <circle cx="12" cy="12" r="1.5"/>
+          <circle cx="12" cy="19" r="1.5"/>
+        </svg>
+        <div id="themeMenu" class="hidden absolute right-0 mt-2 bg-[#2a2a2a] text-white rounded shadow w-40 z-10">
+          <button onclick="setTheme('dark')" class="block w-full text-left px-4 py-2 hover:bg-[#444]">Dark Theme</button>
+          <button onclick="setTheme('light')" class="block w-full text-left px-4 py-2 hover:bg-[#444]">Light Theme</button>
+          <button onclick="setTheme('system')" class="block w-full text-left px-4 py-2 hover:bg-[#444]">System Theme</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- App info -->
+    <div class="flex items-center space-x-4 mb-4">
+      <img src="https://storage.googleapis.com/a1aa/image/88cca52e-9f73-4144-f797-fbddb53972dc.jpg" alt="App Icon" class="w-16 h-16 rounded-2xl"/>
+      <div>
+        <h1 class="text-2xl font-semibold">CricHeroes-Cricket Scoring App</h1>
+        <a href="#" class="text-[#7ea1e8] text-sm font-semibold block">CricHeroes Pvt. Ltd.</a>
+        <p class="text-sm text-[#cfcfcf]">Contains ads • In-app purchases</p>
+      </div>
+    </div>
+
+    <!-- Install Button -->
+    <button class="w-full mt-2 bg-[#a6c8ff] text-[#0a2a6d] font-bold text-lg py-3 rounded-full hover:bg-[#91b9f7] transition-all duration-300">
+      Install
+    </button>
+
+    <!-- Screenshot Viewer -->
+    <div onclick="openViewer()" class="mt-6 flex overflow-x-auto space-x-4 pb-3 hide-scrollbar cursor-pointer">
+      <img src="https://storage.googleapis.com/a1aa/image/490e2908-3a6c-4b19-bd79-fc046ad47fb6.jpg" class="h-52 w-28 rounded-xl flex-shrink-0" alt="screenshot 1">
+      <img src="https://storage.googleapis.com/a1aa/image/d4c11bc9-2de5-4ffa-125e-e26dc315c9cf.jpg" class="h-52 w-28 rounded-xl flex-shrink-0" alt="screenshot 2">
+      <img src="https://storage.googleapis.com/a1aa/image/eff3bb44-d697-4d1f-4bd5-3a2fec183bc2.jpg" class="h-52 w-28 rounded-xl flex-shrink-0" alt="screenshot 3">
+      <img src="https://storage.googleapis.com/a1aa/image/0521ff51-6fcd-4b96-2b8e-fd43d1647302.jpg" class="h-52 w-28 rounded-xl flex-shrink-0" alt="screenshot 4">
+    </div>
+
+    <!-- Fullscreen Viewer -->
+    <div id="viewer" class="fixed inset-0 bg-black bg-opacity-90 hidden z-50 flex items-center justify-center">
+      <div onclick="closeViewer()" class="absolute top-4 right-4 text-white text-2xl cursor-pointer">✖</div>
+      <div class="flex overflow-x-auto space-x-4 px-6 hide-scrollbar">
+        <img src="https://storage.googleapis.com/a1aa/image/490e2908-3a6c-4b19-bd79-fc046ad47fb6.jpg" class="h-96 rounded-lg flex-shrink-0">
+        <img src="https://storage.googleapis.com/a1aa/image/d4c11bc9-2de5-4ffa-125e-e26dc315c9cf.jpg" class="h-96 rounded-lg flex-shrink-0">
+        <img src="https://storage.googleapis.com/a1aa/image/eff3bb44-d697-4d1f-4bd5-3a2fec183bc2.jpg" class="h-96 rounded-lg flex-shrink-0">
+        <img src="https://storage.googleapis.com/a1aa/image/0521ff51-6fcd-4b96-2b8e-fd43d1647302.jpg" class="h-96 rounded-lg flex-shrink-0">
+      </div>
+    </div>
+
+    <!-- About -->
+    <div class="mt-6">
+      <h2 class="text-xl font-semibold mb-2">About this app</h2>
+      <p class="text-base text-[#cfcfcf] leading-snug">
+        No. 1 cricket scorer app for live scoring, live streaming local cricket matches.
+      </p>
+    </div>
+
+    <!-- Tags -->
+    <div class="mt-4 flex gap-3 flex-wrap">
+      <span class="border border-[#3a3a3a] rounded-full px-4 py-1 text-sm">#1 top grossing in sports</span>
+      <span class="border border-[#3a3a3a] rounded-full px-4 py-1 text-sm">Live</span>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script>
+    function toggleMenu() {
+      document.getElementById('themeMenu').classList.toggle('hidden');
+    }
+
+    function setTheme(mode) {
+      const root = document.documentElement;
+      if (mode === 'system') {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        root.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+      } else {
+        root.setAttribute('data-theme', mode);
+      }
+      document.getElementById('themeMenu').classList.add('hidden');
+    }
+
+    function openViewer() {
+      document.getElementById('viewer').classList.remove('hidden');
+    }
+
+    function closeViewer() {
+      document.getElementById('viewer').classList.add('hidden');
+    }
+  </script>
+</body>
+</html>
